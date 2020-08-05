@@ -90,7 +90,7 @@ class Utils {
     public function CountryDataset(){
         $url = 'https://datahub.io/core/country-list/r/0.json';
 
-        $json = BTCPayWebRequest::request($url,[],"GET");
+        $json = BTCPaywebRequest::getUrl($url,[],"GET");
 
 		$array = CJSON::decode($json);
 		// echo "<pre>".print_r($json,true)."</pre>";
