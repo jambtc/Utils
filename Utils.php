@@ -80,31 +80,5 @@ class Utils {
       }
       return $myhost;
     }
-
-    /*
-    * Recupera i country code in accordance with the ISO 3166-1 standard
-    * e restituisce un array con la lista
-    *
-    * curl -L "https://datahub.io/core/country-list/r/0.json"
-    */
-    public function CountryDataset(){
-        $url = 'https://datahub.io/core/country-list/r/0.json';
-
-        $json = BTCPaywebRequest::getUrl($url,[],"GET");
-
-		$array = CJSON::decode($json);
-		// echo "<pre>".print_r($json,true)."</pre>";
-		// exit;
-
-		if (isset($array))
-        	foreach ($array as $field => $desc)
-            	$country[$desc['Code']] = $desc['Name'];
-		else
-			$country = ['IT'=>'Italy'];
-
-        return $country;
-    }
-
-    
 }
 ?>
