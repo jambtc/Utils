@@ -10,7 +10,7 @@ class Utils {
         } else {
             $ssh = Yii::app()->phpseclib->createSSH2('localhost');
             if (!$ssh->login(Utils::getRootUser(), Utils::getRootPassword())) {
-                $return['error'] = 'Login Failed';
+                $return['error'] = 'Login to localhost server failed';
                 echo CJSON::encode($return);
                 exit;
             }
