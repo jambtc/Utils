@@ -61,7 +61,7 @@ class Utils {
           range(0,9),
           range('a','z'),
           range('A','Z'),
-          ($strong === false) ? '' : range(chr(33),chr(126))
+          ($strong === false) ? array() : range(chr(33),chr(126))
         );
         shuffle($chars);
         return implode(array_slice($chars, 0, $length));
