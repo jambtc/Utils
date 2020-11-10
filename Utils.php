@@ -56,15 +56,20 @@ class Utils {
      *
      * @return password
      */
-    public static function passwordGenerator($length = 10, $strong = false){
-        $chars = array_merge(
-          range(0,9),
-          range('a','z'),
-          range('A','Z'),
-          ($strong === false) ? array() : range(chr(33),chr(126))
-        );
-        shuffle($chars);
-        return implode(array_slice($chars, 0, $length));
+    public static function passwordGenerator($length = 10, $strong = null){
+      $chars = array_merge(
+        range(0,9),
+        range('a','z'),
+        range('A','Z'),
+        ($strong === null) ? array() : array_merge(
+          range(chr(33),chr(38)),
+          range(chr(40),chr(59)),
+          range(chr(61),chr(61)),
+          range(chr(63),chr(126))
+        )
+      );
+      shuffle($chars);
+      return implode(array_slice($chars, 0, $length));
     }
 
 
