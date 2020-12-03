@@ -62,7 +62,8 @@ class Utils {
         range('a','z'),
         range('A','Z'),
         ($strong === null) ? array() : array_merge(
-          range(chr(33),chr(38)),
+          range(chr(33),chr(33)),
+          range(chr(35),chr(38)),
           range(chr(40),chr(59)),
           range(chr(61),chr(61)),
           range(chr(63),chr(126))
