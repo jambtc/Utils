@@ -4,30 +4,33 @@
  */
 class Utils {
 
-    public function execInBackground($cmd) {
-        if (substr(php_uname(), 0, 7) == "Windows"){
-          pclose(popen("start /B ". $cmd, "r"));
-        } else {
-            $ssh = Yii::app()->phpseclib->createSSH2('localhost');
-            if (!$ssh->login(Utils::getRootUser(), Utils::getRootPassword())) {
-                $return['error'] = 'Login to localhost server failed';
-                echo CJSON::encode($return);
-                exit;
-            }
-            $action = $cmd . " > /dev/null &";
-            $ssh->exec($action);
-        }
+  /*
+  Esegue in background programmi e comandi per windows e linux
+  */
+  public function execInBackground($cmd) {
+    if (substr(php_uname(), 0, 7) == "Windows"){
+      pclose(popen("start /B ". $cmd, "r"));
+    } else {
+      $ssh = Yii::app()->phpseclib->createSSH2('localhost');
+      if (!$ssh->login(self::getRootUser(), self::getRootPassword())) {
+        return array('error' => 'Login to localhost server failed');
+      }
+      $action = $cmd . " > /dev/null &";
+      $ssh->exec($action);
     }
+  }
 
-    public function getRootPassword(){
-        $settings=Settings::load();
-        return crypt::Decrypt($settings->sshpassword);
-    }
+  // carica la password dell'utente con provilegi di root
+  public function getRootPassword(){
+    $settings=Settings::load();
+    return crypt::Decrypt($settings->sshpassword);
+  }
 
-    public function getRootUser(){
-        $settings=Settings::load();
-        return crypt::Decrypt($settings->sshuser);
-    }
+  // carica l'utente con provilegi di root
+  public function getRootUser(){
+    $settings=Settings::load();
+    return crypt::Decrypt($settings->sshuser);
+  }
 
 
     public function strToHex($string){
@@ -56,7 +59,7 @@ class Utils {
      *
      * @return password
      *
-     * excluded characters: space " ' / < = > \ |  
+     * excluded characters: space " ' / < = > \ |
      */
     public static function passwordGenerator($length = 10, $strong = null){
       $chars = array_merge(
