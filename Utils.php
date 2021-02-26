@@ -7,30 +7,30 @@ class Utils {
   /*
   Esegue in background programmi e comandi per windows e linux
   */
-  public function execInBackground($cmd) {
-    if (substr(php_uname(), 0, 7) == "Windows"){
-      pclose(popen("start /B ". $cmd, "r"));
-    } else {
-      $ssh = Yii::app()->phpseclib->createSSH2('localhost');
-      if (!$ssh->login(self::getRootUser(), self::getRootPassword())) {
-        return array('error' => 'Login to localhost server failed');
-      }
-      $action = $cmd . " > /dev/null &";
-      $ssh->exec($action);
-    }
-  }
-
-  // carica la password dell'utente con provilegi di root
-  public function getRootPassword(){
-    $settings=Settings::load();
-    return crypt::Decrypt($settings->sshpassword);
-  }
-
-  // carica l'utente con provilegi di root
-  public function getRootUser(){
-    $settings=Settings::load();
-    return crypt::Decrypt($settings->sshuser);
-  }
+  // public function execInBackground($cmd) {
+  //   if (substr(php_uname(), 0, 7) == "Windows"){
+  //     pclose(popen("start /B ". $cmd, "r"));
+  //   } else {
+  //     $ssh = Yii::app()->phpsshlib->createSSH2('localhost');
+  //     if (!$ssh->login(self::getRootUser(), self::getRootPassword())) {
+  //       return array('error' => 'Login to localhost server failed');
+  //     }
+  //     $action = $cmd . " > /dev/null &";
+  //     $ssh->exec($action);
+  //   }
+  // }
+  //
+  // // carica la password dell'utente con provilegi di root
+  // public function getRootPassword(){
+  //   $settings=Settings::load();
+  //   return crypt::Decrypt($settings->sshpassword);
+  // }
+  //
+  // // carica l'utente con provilegi di root
+  // public function getRootUser(){
+  //   $settings=Settings::load();
+  //   return crypt::Decrypt($settings->sshuser);
+  // }
 
 
     public function strToHex($string){
